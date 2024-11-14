@@ -12,6 +12,6 @@ files from a PC.
 
 However..
 
-I have renctly finished a massively intensive course in JavaScript beginner to expert and I
+I have recently finished a massively intensive course in JavaScript beginner to expert and I
 now know how to do it!
 
