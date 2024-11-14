@@ -1,0 +1,100 @@
+:root {
+ /* used for variables for CSS use only
+    -----------------------------------
+*/
+
+/*intro screen pos */
+   --introScr-left: 50px;
+   --introScr-top: 50px;
+/* command textbox */
+   --textbox-command-top:89.6%;
+   --textbox-command-left:162px;
+   --textbox-command-width:300px;
+   --textbox-command-height:18px;
+/* label for command textbox */
+   --label-command-top:88%;
+   --label-command-left:20px;
+   --label-command-width:200px;
+   --label-command-height:20px;
+
+/* start button */
+   --button-start-top: 80%;
+   --button-start-left: 440px;
+   --button-start-width: 200px;
+   --button-start-height: 80px;
+}
+
+body {
+   background-color: blue;
+}
+h1 {
+   color:white;
+}
+#txtCommand {
+   top: var(--textbox-command-top);
+   left: var(--textbox-command-left);
+   width: var(--textbox-command-width);
+   height: var(--textbox-command-height);
+   position: absolute;
+   z-index: 2;
+   background: rgb(41, 8, 231); 
+   color: white;
+   font-weight: bold;
+   font-size: large;
+}
+#btnStart {
+   top: var(--button-start-top);
+   left: var(--button-start-left);
+   width: var(--button-start-width);
+   height: var(--button-start-height);
+   position: absolute;
+   font-size: large;
+   color: white;
+   background: rgb(58, 49, 110)
+}
+#lblCommand {
+   top: var(--label-command-top);
+   left: var(--label-command-left);
+   width: var(--label-command-width);
+   height: var(--label-command-height);
+   position: absolute;
+   background: blue;
+   color: white;
+   font-weight: bold;
+   font-size: large;
+}
+#introScr1 {
+   top: var(--introScr-top);
+   left: var(--introScr-left); 
+   position:  absolute;; 
+}     
+#introScr2 {
+   top: var(--introScr-top);
+   left: var(--introScr-left);  
+   position: absolute;;
+} 
+#exitScr {
+   top: var(--introScr-top);
+   left: var(--introScr-left);  
+   position: absolute;
+}   
+#gameRoom {
+   top: var(--introScr-top);
+   left: var(--introScr-left);  
+   position: absolute;
+   color: white;
+   font-size: large;
+}   
+#playAgainScr {
+   top: var(--introScr-top);
+   left: var(--introScr-left);  
+   position: absolute;
+   color: white;
+}
+/*   
+   padding-top:  30px;
+   padding-bottom:  15px;
+   padding-right: 30px;
+  border: #000 solid;
+ */  
+ 

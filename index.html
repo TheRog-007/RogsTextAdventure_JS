@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link type="text/css" link rel="stylesheet" href="Style.css"></link>
+    <title>Rog's Text Adventure - JavaScript Edition!!</title>   
+
+    <!-- game resources-->
+<!--     
+    <img id="boat" src="Images/Boat.png" hidden/>  
+    <img id="sub" src="Images/Sub.png" hidden/>
+    <img id="depth" src="Images/Depth.png" hidden/>
+    <img id="missile" src="Images/Missile.png" hidden/>
+    <audio id="audiofiles" controls hidden>
+      <source src="Sound\GuitarHero.mp3" id="sndDrop" type="audio/mp3">
+      <source src="Sound\08 - Run Of The Mill.mp3" id="sndBackground" type="audio/mp3">
+      <source src="Sound\/chatResponseReceived3.mp3" id="sndHit" type="audio/mp3">
+    </audio>
+--> 
+  </head>
+  <div>
+
+<!-- intro screens-->
+<div>   
+   <pre id="introScr1" hidden>
+      ************************************************************************************************************************
+      *                                                                                                                      *
+      *    RRRRRRRRRRRRRRRR       OOOOOOOOOOOOOOO     GGGGGGGGGGGGGG          EEEEEEEEEEEEEEEEEE      RRRRRRRRRRRRRRR        *
+      *    R              R       O             O     G                       E                       R             R        *
+      *    R              R       O             O     G                       E                       R             R        *
+      *    R              R       O             O     G                       E                       R             R        *
+      *    R              R       O             O     G                       E                       R             R        *
+      *    R              R       O             O     G                       E                       R             R        *
+      *    R              R       O             O     G                       E                       R             R        *
+      *    RRRRRRRRRRRRRRR        O             O     G       GGGGGGGGGGG     EEEEEEEEEEEEEEEEEE      RRRRRRRRRRRRRRR        *
+      *    R R                    O             O     G            G          E                       RR                     *
+      *    R   R                  O             O     G            G          E                       R  R                   *
+      *    R     R                O             O     G            G          E                       R    R                 *
+      *    R       R              O             O     G            G          E                       R      R               *
+      *    R         R            O             O     G            G          E                       R        R             *
+      *    R           R          O             O     G            G          E                       R          R           *
+      *    R             R        OOOOOOOOOOOOOOO     GGGGGGGGGGGGGG          EEEEEEEEEEEEEEEEEE      R            R         *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                SSSSSSSSSSSSSSSS       OOOOOOOOOOOOOOO      FFFFFFFFFFFFFFF     TTTTTTTTTTTTTTTTTT                    *
+      *                S                      O             O      F                            T                            *
+      *                S                      O             O      F                            T                            *
+      *                S                      O             O      F                            T                            *
+      *                S                      O             O      F                            T                            *
+      *                S                      O             O      F                            T                            *
+      *                SSSSSSSSSSSSSSSS       O             O      FFFFFFFFFFFFFFF              T                            *
+      *                               S       O             O      F                            T                            *
+      *                               S       O             O      F                            T                            *
+      *                               S       O             O      F                            T                            *
+      *                               S       O             O      F                            T                            *
+      *                               S       O             O      F                            T                            *
+      *                SSSSSSSSSSSSSSSS       OOOOOOOOOOOOOOO      F                            T                            *
+      *                                                                                                                      *
+      *           PPPPPPPP     RRRRRRR     EEEEEEE     SSSSSSS     EEEEEEE     N      N     TTTTTTT     SSSSSSS              *
+      *           P      P     R     R     E           S           E           N N    N        T        S                    *
+      *           PPPPPPPP     RRRRRRR     E           S           E           N   N  N        T        S                    *
+      *           P            RR          EEEEEEE     SSSSSSS     EEEEEEE     N    N N        T        SSSSSSS              *
+      *           P            R  R        E                 S     E           N     NN        T              S              *
+      *           P            R    R      EEEEEEE     SSSSSSS     EEEEEEE     N      N        T        SSSSSSS              *
+      *                                                                                                                      *
+      ************************************************************************************************************************      
+    </pre>
+   </div>
+    <div>
+    <pre id="introScr2" hidden>
+      ************************************************************************************************************************
+      *    TTTTTTT     RRRRRRR     AAAAAAA     PPPPPPP     PPPPPPP     EEEEEEE     DDDDDD                                    *
+      *       T        R     R     A     A     P     P     P     P     E           D     D                                   *
+      *       T        R     R     A     A     P     P     P     P     E           D     D                                   *
+      *       T        RRRRRRR     AAAAAAA     PPPPPPP     PPPPPPP     EEEEEEE     D     D                                   *
+      *       T        RR          A     A     P           P           E           D     D                                   *
+      *       T        R  R        A     A     P           P           E           D     D                                   *
+      *       T        R    R      A     A     P           P           EEEEEEE     DDDDDD                                    *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                          IIIIIIIIII          N        N                                                              *
+      *                              I               NN       N                                                              *
+      *                              I               N N      N                                                              *
+      *                              I               N  N     N                                                              *
+      *                              I               N   N    N                                                              *
+      *                              I               N    N   N                                                              *
+      *                              I               N     N  N                                                              *
+      *                              I               N      N N                                                              *
+      *                              I               N       NN                                                              *
+      *                          IIIIIIIII           N        N                                                              *
+      *                                                                                                                      *
+      *                                                                                                                  O O *
+      *   M          M     IIIIIII     CCCCCCC     RRRRRRR     OOOOOOO     SSSSSSS     OOOOOOO     FFFFFFF     TTTTTTT   O O *
+      *   MM        MM        I        C           R     R     O     O     S           O     O     F              T      O O *
+      *   M  M     M M        I        C           R     R     O     O     S           O     O     F              T      O O *
+      *   M   M   M  M        I        C           RRRRRRR     O     O     SSSSSSS     O     O     FFFFFFF        T      O O *
+      *   M    M M   M        I        C           RR          O     O           S     O     O     F              T          *
+      *   M     M    M        I        C           R  R        O     O           S     O     O     F              T      O O *
+      *   M          M     IIIIIII     CCCCCCC     R    R      OOOOOOO     SSSSSSS     OOOOOOO     F              T      O O *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                          OOOOOOOOOOO                                                                                 *
+      *                          O         O               --------------------------------------------------                *
+      *                          O         O----\          |    Reliability.exe caused an exception error   |                *
+      *                          OOOOOOOOOOO     \---------|    in kernel32.dll luckily for you this isnt   |                *
+      *                              O O                   |    caused by a virus - we did it!              |                *
+      *                       O =============  O           --------------------------------------------------                *
+      *                       O ============== O                                                                             *
+      *                       OOOOOOOOOOOOOOOOOO                                                                             *
+      *                                                                                                                      *
+      ************************************************************************************************************************
+    </pre>
+    </div>
+    <pre id="exitScr" hidden>
+      ************************************************************************************************************************
+      *                                                                                                                      *
+      *     TTTTTTTTTTTTTTT    H             H     AAAAAAAAAAAAA     NN         N       K       K       SSSSSSSSSSSSSS       *
+      *            T           H             H     A           A     N N        N       K     K         S                    *
+      *            T           H             H     A           A     N  N       N       K    K          S                    *
+      *            T           H             H     A           A     N   N      N       K   K           S                    *
+      *            T           HHHHHHHHHHHHHHH     AAAAAAAAAAAAA     N    N     N       KKK             SSSSSSSSSSSSSS       *
+      *            T           H             H     A           A     N     N    N       K  K                         S       *
+      *            T           H             H     A           A     N      N   N       K    K                       S       *
+      *            T           H             H     A           A     N       N  N       K      K                     S       *
+      *            T           H             H     A           A     N        N N       K        K                   S       *
+      *            T           H             H     A           A     N          N       K         K     SSSSSSSSSSSSSS       *
+      *                                                                                                                      *
+      *                                FFFFFFFFFFFFFFFF      OOOOOOOOOOOOOOOO        RRRRRRRRRRRR                            *
+      *                                F                     O              O        R          R                            *
+      *                                F                     O              O        R          R                            *
+      *                                F                     O              O        R          R                            *
+      *                                FFFFFFFFFFFFFFFF      O              O        RRRRRRRRRRRR                            *
+      *                                F                     O              O        RR                                      *
+      *                                F                     O              O        R  R                                    *
+      *                                F                     O              O        R    R                                  *
+      *                                F                     O              O        R      R                                *
+      *                                F                     OOOOOOOOOOOOOOOO        R        R                              *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *        PPPPPPPPPPPP    L             AAAAAAAAAAAAA    Y         Y   IIIIIIIIIIII    NN            N    GGGGGGGGGGGG  *
+      *        P          P    L             A           A     Y       Y         I          N N           N    G             *
+      *        P          P    L             A           A      Y     Y          I          N  N          N    G             *
+      *        P          P    L             A           A       Y   Y           I          N   N         N    G             *
+      *        P          P    L             A           A        Y Y            I          N    N        N    G             *
+      *        P          P    L             A           A         Y             I          N     N       N    G             *
+      *        PPPPPPPPPPPP    L             AAAAAAAAAAAAA         Y             I          N      N      N    G    GGGGGGG  *
+      *        P               L             A           A         Y             I          N       N     N    G       G     *
+      *        P               L             A           A         Y             I          N        N    N    G       G     *
+      *        P               L             A           A         Y             I          N         N   N    G       G     *
+      *        P               L             A           A         Y             I          N          N  N    G       G     *
+      *        P               L             A           A         Y             I          N           N N    G       G     *
+      *        P               L             A           A         Y             I          N            NN    G       G     *
+      *        P               LLLLLLLLLL    A           A         Y        IIIIIIIIIIII    N             N    GGGGGGGGG     *
+      *                                                                                                                      *
+      ************************************************************************************************************************
+   </pre>
+  </div>
+  <div>
+    <pre id="playAgainScr" hidden>
+      ************************************************************************************************************************
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *        PPPPPPPPPPPP    L             AAAAAAAAAAAAA    Y         Y                                                    *
+      *        P          P    L             A           A     Y       Y                                                     *
+      *        P          P    L             A           A      Y     Y                                                      *
+      *        P          P    L             A           A       Y   Y                                                       *
+      *        P          P    L             A           A        Y Y                                                        *
+      *        P          P    L             A           A         Y                                                         *
+      *        PPPPPPPPPPPP    L             AAAAAAAAAAAAA         Y                                                         *
+      *        P               L             A           A         Y                                                         *
+      *        P               L             A           A         Y                                                         *
+      *        P               L             A           A         Y                                                         *
+      *        P               L             A           A         Y                                                         *
+      *        P               L             A           A         Y                                                         *
+      *        P               L             A           A         Y                                                         *
+      *        P               LLLLLLLLLL    A           A         Y                                                         *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *        AAAAAAAAAAAAAAAA     GGGGGGGGGGGGGG    AAAAAAAAAAAAAAA    IIIIIIIIIIIIIIIII     N          N       ???????    *
+      *        A              A     G                 A             A            I             NN         N      ?       ?   *
+      *        A              A     G                 A             A            I             N N        N     ?        ?   *
+      *        A              A     G                 A             A            I             N  N       N              ?   *
+      *        A              A     G                 A             A            I             N   N      N             ?    * 
+      *        A              A     G                 A             A            I             N    N     N            ?     *
+      *        AAAAAAAAAAAAAAAA     G      GGGGGGG    AAAAAAAAAAAAAAA            I             N     N    N          ?       *
+      *        A              A     G         G       A             A            I             N      N   N        ?         *
+      *        A              A     G         G       A             A            I             N       N  N      ?           *
+      *        A              A     G         G       A             A            I             N        N N     ?            *
+      *        A              A     G         G       A             A            I             N         NN                  *
+      *        A              A     GGGGGGGGGGG       A             A            I             N          N     ?            *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      ************************************************************************************************************************
+    </pre>
+  </div>
+  <div>
+    <pre id="winScr" hidden>
+      ************************************************************************************************************************
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *            Y         Y        OOOOOOOOOOOO         U            U                                                    *
+      *             Y       Y         O          O         U            U                                                    *
+      *              Y     Y          O          O         U            U                                                    *
+      *               Y   Y           O          O         U            U                                                    *
+      *                Y Y            O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             OOOOOOOOOOOO         UUUUUUUUUUUUUU                                                    *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *           W                              W        IIIIIIIIIIIIIIIII       N          N        !!  !!                 *
+      *            W                            W                 I               NN         N        !!  !!                 *
+      *             W                          W                  I               N N        N        !!  !!                 *
+      *              W                        W                   I               N  N       N        !!  !!                 *
+      *               W                      W                    I               N   N      N        !!  !!                 * 
+      *                W                    W                     I               N    N     N        !!  !!                 *
+      *                 W                  W                      I               N     N    N        !!  !!                 *
+      *                  W        W       W                       I               N      N   N        !!  !!                 *
+      *                   W      W W     W                        I               N       N  N        !!  !!                 *
+      *                    W    W   W   W                         I               N        N N                               *
+      *                     W W      W W                          I               N         NN        OO  OO                 *
+      *                      W        W                   IIIIIIIIIIIIIIIII       N          N        OO  OO                 *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      ************************************************************************************************************************    
+    </pre>
+  </div>
+  <div>
+    <pre id="loseScr" hidden>
+      ************************************************************************************************************************
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *            Y         Y        OOOOOOOOOOOO         U            U                                                    *
+      *             Y       Y         O          O         U            U                                                    *
+      *              Y     Y          O          O         U            U                                                    *
+      *               Y   Y           O          O         U            U                                                    *
+      *                Y Y            O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             O          O         U            U                                                    *
+      *                 Y             OOOOOOOOOOOO         UUUUUUUUUUUUUU                                                    *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                L              OOOOOOOOOOOO         SSSSSSSSSSSSSS        EEEEEEEEEEEEEE       !!  !!                 *
+      *                L              O          O         S                     E                    !!  !!                 *
+      *                L              O          O         S                     E                    !!  !!                 *
+      *                L              O          O         S                     E                    !!  !!                 *
+      *                L              O          O         S                     E                    !!  !!                 * 
+      *                L              O          O         S                     E                    !!  !!                 *
+      *                L              O          O         SSSSSSSSSSSSSS        EEEEEEEEEEEEEE       !!  !!                 *
+      *                L              O          O                      S        E                    !!  !!                 *
+      *                L              O          O                      S        E                    !!  !!                 *
+      *                L              O          O                      S        E                                           *
+      *                L              O          O                      S        E                    OO  OO                 *
+      *                L              O          O                      S        E                    OO  OO                 *
+      *                LLLLLLLLLLLL   OOOOOOOOOOOO         SSSSSSSSSSSSSS        EEEEEEEEEEEEEE                              *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      *                                                                                                                      *
+      ************************************************************************************************************************
+    </pre>
+  </div>
+    <div>
+      <pre id="gameRoom" hidden>
+      </pre>
+    </div> 
+    <p id="lblCommand" hidden>Enter Command:</p>
+    <input type="text" title="Enter Command" id="txtCommand" hidden></input>
+    <button id="btnStart" hidden>Click To Play!</button>
+
+    <script src="./Modules/controller.js" type="module" defer></script>
+    <script src="./Modules/model.js"" type="module" defer></script>
+    <script src="./Modules/view.js"" type="module" defer></script>
+    <script src="./Modules/rooms.js"" type="module" defer></script> 
+    <script src="./Modules/parser.js"" type="module" defer></script> 
+  </body>
+</html>
