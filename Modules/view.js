@@ -10,9 +10,37 @@ view module handles visual changes such as:
 
 */
 import { aryRooms } from "./rooms.js";
+import { audPlayMain } from "./controller.js";
 
 //local
 let intCurRoom = 1;
+//sound
+const audPlayAgain = new Audio(
+  document.getElementById("sndPlayAgain").getAttribute("src")
+);
+
+const audPlayYouLose = new Audio(
+  document.getElementById("sndYouLose").getAttribute("src")
+);
+
+const audPlayYouWin = new Audio(
+  document.getElementById("sndYouWin").getAttribute("src")
+);
+
+const stopAudio = function () {
+  //stops all audio play
+  audPlayAgain.pause();
+  //reset to start
+  audPlayAgain.currentTime = 0;
+  audPlayMain.pause();
+  audPlayMain.currentTime = 0;
+  audPlayYouLose.pause();
+  audPlayYouLose.currentTime = 0;
+  audPlayYouWin.pause();
+  audPlayYouWin.currentTime = 0;
+};
+
+//rog's patented delay routine :)
 const sleep = function (milliseconds) {
   let curDate = new Date();
   //get current time
@@ -120,9 +148,18 @@ export const setRoom = function (intRoom) {
 };
 
 export const showplayAgain = function () {
-  //show play again screwn
+  //stop all music
+  stopAudio();
+  //hide win/lose screens
+  document.getElementById("loseScr").hidden = true;
+  document.getElementById("winScr").hidden = true;
+  //show play again screen
   document.getElementById("playAgainScr").hidden = false;
-  document.getElementById("txtCommand").value = "y";
+  //play background music asynchronously
+  audPlayAgain.play().async;
+  //show play again screwn
+  document.getElementById("txtCommand").hidden = false;
+  document.getElementById("txtCommand").focus();
 };
 
 export const showIntro = function () {
@@ -141,6 +178,9 @@ export const showIntro = function () {
   let intNum = 0;
   let intNum2 = 0;
   let intScr = 1;
+  //stop all music
+  stopAudio();
+
   //hide everything
   hideBeforePlay();
   //get first screen element
@@ -192,6 +232,9 @@ export const exitGame = function () {
 
   //user exits game
 
+  //stop all sound
+  stopAudio();
+
   //hide everything
   hideBeforePlay();
   //show exit screen
@@ -200,8 +243,6 @@ export const exitGame = function () {
 
   let intNum = 0;
   let intNum2 = 0;
-  const strExit =
-    "\n\n                                                                     Bye!";
 
   const loopExit = window.setInterval(() => {
     document.getElementById("exitScr").style.color = aryColours[intNum];
@@ -234,6 +275,11 @@ export const showWin = function () {
 
   //user wins game
 
+  //stop all music
+  stopAudio();
+
+  //play win tune
+  audPlayYouWin.play().async;
   //hide everything
   hideBeforePlay();
   //show exit screen
@@ -256,9 +302,7 @@ export const showWin = function () {
     if (intNum2 === 41) {
       if (intNum2 === 41) {
         clearInterval(loopExit);
-        document.getElementById("playAgainScr").hidden = false;
-        document.getElementById("txtCommand").hidden = false;
-        document.getElementById("txtCommand").focus();
+        showplayAgain();
       }
     }
 
@@ -287,8 +331,11 @@ export const showLose = function () {
   let intNum2 = 0;
 
   //delay so player can see last room text
-  sleep(20000); // pause for 10 seconds
-
+  sleep(10000); // pause for 10 seconds
+  //stop all music
+  stopAudio();
+  //play lose tune
+  audPlayYouLose.play().async;
   //hide room
   document.getElementById("gameRoom").hidden = true;
   //show exit screen
@@ -304,8 +351,7 @@ export const showLose = function () {
 
     if (intNum2 === 41) {
       clearInterval(loopExit);
-      document.getElementById("loseScr").hidden = true;
-      document.getElementById("playAgainScr").hidden = false;
+      showplayAgain();
     }
 
     intNum++;

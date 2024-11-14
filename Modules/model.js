@@ -17,7 +17,6 @@ import {
   setRoom,
   showForPlay,
   showLose,
-  showplayAgain,
   showWin,
 } from "./view.js";
 import { objState, parseText } from "./parser.js";
