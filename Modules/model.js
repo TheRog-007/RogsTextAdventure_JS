@@ -46,13 +46,9 @@ export const initTextBox = function () {
         case "resume":
           showRoom();
           break;
-        //        case "exit":
-        //          exitGame();
-        //          break;
         case "y":
           //if play again screen shown
           if (document.getElementById("playAgainScr").hidden === false) {
-            //     showplayAgain();
             //process request
             handlePlayAgain(txtCmd.value.toLowerCase());
             break;
@@ -60,7 +56,6 @@ export const initTextBox = function () {
         case "n":
           //if play again screen shown
           if (document.getElementById("playAgainScr").hidden === false) {
-            //     showplayAgain();
             //process request
             handlePlayAgain(txtCmd.value.toLowerCase());
             break;
