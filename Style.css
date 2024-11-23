@@ -4,10 +4,10 @@
 */
 
 /*intro screen pos */
-   --introScr-left: 50px;
-   --introScr-top: 50px;
+   --introScr-left: 30px;
+   --introScr-top: 40px;
 /* command textbox */
-   --textbox-command-top:89.6%;
+   --textbox-command-top:90%;
    --textbox-command-left:162px;
    --textbox-command-width:300px;
    --textbox-command-height:18px;
@@ -20,8 +20,8 @@
 /* start button */
    --button-start-top: 80%;
    --button-start-left: 440px;
-   --button-start-width: 200px;
-   --button-start-height: 80px;
+   --button-start-width: 150px;
+   --button-start-height: 60px;
 }
 
 body {
@@ -30,6 +30,14 @@ body {
 h1 {
    color:white;
 }
+
+/*elements*/
+
+#maindisplay {
+   margin: 0 auto;
+   max-width: 2000;
+}
+
 #txtCommand {
    top: var(--textbox-command-top);
    left: var(--textbox-command-left);
@@ -37,10 +45,11 @@ h1 {
    height: var(--textbox-command-height);
    position: absolute;
    z-index: 2;
-   background: rgb(41, 8, 231); 
+   background-color: rgb(77, 73, 92); 
    color: white;
    font-weight: bold;
    font-size: large;
+   border-style:none;
 }
 #btnStart {
    top: var(--button-start-top);
@@ -50,7 +59,32 @@ h1 {
    position: absolute;
    font-size: large;
    color: white;
-   background: rgb(58, 49, 110)
+   background-color: rgb(52, 42, 109);
+   border-radius: 16%;
+   border-style: solid;
+   /*set delay for hover*/
+   transition: 0.3s; 
+   /* cause button text to change - animate colour*/
+   animation: blinker 3s infinite;
+   animation-timing-function: linear;
+}
+@keyframes blinker {
+      5% {
+         color:white;
+      }
+      25% {
+         color:blue;
+      }
+      50% {
+         color:green;
+      }
+      90%{
+         color:yellow;
+      }
+}
+#btnStart:hover {
+   background-color: cadetblue;
+   cursor: grab;
 }
 #lblCommand {
    top: var(--label-command-top);
@@ -58,34 +92,38 @@ h1 {
    width: var(--label-command-width);
    height: var(--label-command-height);
    position: absolute;
-   background: blue;
+   background-color: blue;
    color: white;
    font-weight: bold;
    font-size: large;
 }
-#introScr1 {
-   top: var(--introScr-top);
-   left: var(--introScr-left); 
-   position:  absolute;; 
-}     
-#introScr2 {
-   top: var(--introScr-top);
-   left: var(--introScr-left);  
-   position: absolute;;
-} 
-#exitScr {
+
+/*screens*/
+#scr--introScr1 {
+   padding-left: var(--introScr-left); 
+   padding-top: var(--introScr-top);
+   position:  absolute;
+}
+
+#scr--introScr2 {
+   padding-left: var(--introScr-left); 
+   padding-top: var(--introScr-top);
+   position: absolute;
+}
+
+#scr--exitScr {
    top: var(--introScr-top);
    left: var(--introScr-left);  
    position: absolute;
 }   
-#gameRoom {
+#scr--gameRoom {
    top: var(--introScr-top);
    left: var(--introScr-left);  
    position: absolute;
    color: white;
    font-size: large;
 }   
-#playAgainScr {
+#scr--playAgainScr {
    top: var(--introScr-top);
    left: var(--introScr-left);  
    position: absolute;

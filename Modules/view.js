@@ -61,8 +61,8 @@ export let objCurRoom = aryRooms[intCurRoom];
 export const hideBeforePlay = function () {
   //prepare screen on first run
   //
-  document.getElementById("introScr1").style.display = "none";
-  document.getElementById("introScr2").style.display = "none";
+  document.getElementById("scr--introScr1").style.display = "none";
+  document.getElementById("scr--introScr2").style.display = "none";
 
   //hide text box and "label"
   document.getElementById("lblCommand").style.display = "none";
@@ -72,16 +72,16 @@ export const hideBeforePlay = function () {
   document.getElementById("btnStart").hidden = true;
 
   //hide room
-  document.getElementById("gameRoom").hidden = true;
+  document.getElementById("scr--gameRoom").hidden = true;
   //hide play again
-  document.getElementById("playAgainScr").hidden = true;
+  document.getElementById("scr--playAgainScr").hidden = true;
 };
 
 export const showForPlay = function () {
   //prepare screen on first run
   //hide intro screens
-  document.getElementById("introScr1").style.display = "none";
-  document.getElementById("introScr2").style.display = "none";
+  document.getElementById("scr--introScr1").style.display = "none";
+  document.getElementById("scr--introScr2").style.display = "none";
 
   //show text box and "label"
   document.getElementById("lblCommand").style.display = "inline";
@@ -102,8 +102,8 @@ export const showRoom = function () {
     strTemp = strTemp + objCurRoom[`line` + intNum] + `\n`;
   }
   //show room text
-  document.getElementById("gameRoom").innerText = strTemp;
-  document.getElementById("gameRoom").hidden = false;
+  document.getElementById("scr--gameRoom").innerText = strTemp;
+  document.getElementById("scr--gameRoom").hidden = false;
   //clear text box
   document.getElementById("txtCommand").value = "";
 };
@@ -151,10 +151,10 @@ export const showplayAgain = function () {
   //stop all music
   stopAudio();
   //hide win/lose screens
-  document.getElementById("loseScr").hidden = true;
-  document.getElementById("winScr").hidden = true;
+  document.getElementById("scr--loseScr").hidden = true;
+  document.getElementById("scr--winScr").hidden = true;
   //show play again screen
-  document.getElementById("playAgainScr").hidden = false;
+  document.getElementById("scr--playAgainScr").hidden = false;
   //play background music asynchronously
   audPlayAgain.play().async;
   //show play again screwn
@@ -184,9 +184,9 @@ export const showIntro = function () {
   //hide everything
   hideBeforePlay();
   //get first screen element
-  const elintroScr1 = document.getElementById("introScr1");
+  const elintroScr1 = document.getElementById("scr--introScr1");
   //get second screen element
-  const elintroScr2 = document.getElementById("introScr2");
+  const elintroScr2 = document.getElementById("scr--introScr2");
 
   //flash first screen
   elintroScr1.style.display = "inline";
@@ -238,14 +238,14 @@ export const exitGame = function () {
   //hide everything
   hideBeforePlay();
   //show exit screen
-  document.getElementById("exitScr").hidden = false;
+  document.getElementById("scr--exitScr").hidden = false;
   //flash colours
 
   let intNum = 0;
   let intNum2 = 0;
 
   const loopExit = window.setInterval(() => {
-    document.getElementById("exitScr").style.color = aryColours[intNum];
+    document.getElementById("scr--exitScr").style.color = aryColours[intNum];
 
     if (intNum === aryColours.length) {
       intNum = 0;
@@ -283,14 +283,14 @@ export const showWin = function () {
   //hide everything
   hideBeforePlay();
   //show exit screen
-  document.getElementById("winScr").hidden = false;
+  document.getElementById("scr--winScr").hidden = false;
   //flash colours
 
   let intNum = 0;
   let intNum2 = 0;
 
   const loopExit = window.setInterval(() => {
-    document.getElementById("winScr").style.color = aryColours[intNum];
+    document.getElementById("scr--winScr").style.color = aryColours[intNum];
 
     if (intNum === aryColours.length) {
       if (intNum === aryColours.length) {
@@ -337,13 +337,13 @@ export const showLose = function () {
   //play lose tune
   audPlayYouLose.play().async;
   //hide room
-  document.getElementById("gameRoom").hidden = true;
+  document.getElementById("scr--gameRoom").hidden = true;
   //show exit screen
-  document.getElementById("loseScr").hidden = false;
+  document.getElementById("scr--loseScr").hidden = false;
   //flash colours
 
   const loopExit = window.setInterval(() => {
-    document.getElementById("loseScr").style.color = aryColours[intNum];
+    document.getElementById("scr--loseScr").style.color = aryColours[intNum];
 
     if (intNum === aryColours.length) {
       intNum = 0;
