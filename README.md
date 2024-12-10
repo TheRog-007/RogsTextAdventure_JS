@@ -7,7 +7,7 @@ Originally done in Vb .NET it was converted too:
 - C#
 - Delphi
 - COBOL
-- 
+
 I thought a JavaScript version would be impossible due to JavaScript not being able to read
 files from a PC.
 
