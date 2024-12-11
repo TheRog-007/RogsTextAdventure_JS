@@ -1,3 +1,10 @@
+export const objLoadSave = {
+  room: 0,
+  north: 0,
+  south: 0,
+  east: 0,
+  west: 0,
+};
 export const aryRooms = [
   {
     room: 0,
@@ -58,7 +65,7 @@ export const aryRooms = [
     line14:
       "Another huge pile of Windows issues awaits you today, more joys with printers Windows forgets exist, domain networks",
     line15:
-      "suddenly becoming Public for no reason, shared network drives siddnely having incorrect credentials despite them being",
+      "suddenly becoming Public for no reason, shared network drives suddenly having incorrect credentials despite them being",
     line16: "correct...",
     line17: "",
     line18: "",

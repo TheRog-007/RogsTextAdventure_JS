@@ -12,7 +12,7 @@
    --textbox-command-width:300px;
    --textbox-command-height:18px;
 /* label for command textbox */
-   --label-command-top:88%;
+   --label-command-top:90%;
    --label-command-left:20px;
    --label-command-width:200px;
    --label-command-height:20px;
@@ -22,6 +22,11 @@
    --button-start-left: 440px;
    --button-start-width: 150px;
    --button-start-height: 60px;
+/* help button */
+   --button-help-top: 1%;
+   --button-help-left: 10px;
+   --button-help-width: 70px;
+   --button-jelp-height: 60px;
 }
 
 body {
@@ -96,6 +101,38 @@ h1 {
    color: white;
    font-weight: bold;
    font-size: large;
+}
+#btnHelp
+{
+   top: var(--button-help-top);
+   left: var(--button-help-left);
+   width: var(--button-help-width);
+   height: var(--button-help-height);
+   position: absolute;
+   font-size: large;
+   color: white;
+   background-color: rgb(52, 42, 109);
+   border-radius: 16%;
+   border-style: solid;
+   /*set delay for hover*/
+   transition: 0.3s; 
+   /* cause button text to change - animate colour*/
+   animation: blinker 3s infinite;
+   animation-timing-function: linear;
+}
+@keyframes blinker {
+      5% {
+         color:white;
+      }
+      25% {
+         color:blue;
+      }
+      50% {
+         color:green;
+      }
+      90%{
+         color:yellow;
+      }
 }
 
 /*screens*/

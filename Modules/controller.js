@@ -2,42 +2,49 @@
 //import "code-js";
 //import "regenerator-runtime";
 
-import { initTextBox, initStartButton } from "./model.js";
-import { showIntro, showRoom, showLose } from "./view.js";
+import {
+  funcInitTextBox,
+  funcInitHelpButton,
+  funcInitMusic,
+  funcInitStartButton,
+} from "./model.js";
+import { funcShowIntro, funcShowRoom } from "./view.js";
 
 export const audPlayMain = new Audio(
   document.getElementById("sndMain").getAttribute("src")
 );
 
-export const mainGame = function () {
+export const funcMainGame = () => {
   //add event so background music loops
-  audPlayMain.addEventListener(
-    "ended",
-    function () {
-      //set to start of file
-      this.currentTime = 0;
-      //play again!
-      this.play().async;
-    },
-    false //set default of ended event to false
-  );
+  funcInitMusic();
 
-  //play background music asynchronously
-  audPlayMain.play().async;
+  // audPlayMain.addEventListener(
+  //   "ended",
+  //   () => {
+  //     //set to start of file
+  //     this.currentTime = 0;
+  //     //play again!
+  //     this.play().async;
+  //   },
+  //   false //set default of ended event to false
+  // );
+
+  // //play background music asynchronously
+  // audPlayMain.play().async;
+  funcShowRoom();
+
   //main game loop
-  showRoom();
   //create textbox keypress handler
-  initTextBox();
+  funcInitTextBox();
 };
 
-export const startGame = function () {
+export const funcStartGame = () => {
   //set events
-  initStartButton();
-
+  funcInitStartButton();
+  funcInitHelpButton();
   //show intro and start game
-  showIntro();
-  //showLose();
+  funcShowIntro();
 };
 
 //start
-startGame();
+funcStartGame();

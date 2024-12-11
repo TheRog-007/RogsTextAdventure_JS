@@ -1,0 +1,54 @@
+Change Log
+==========
+
+WOW! have not had to create one of these text files since the 90's! Are we really going forwards? ;)
+
+
+11/12 2024
+
+Revamped funcShowSetRoom:
+removed direction switch check, refactored into a much simplier structure
+Fixed bug in funcStopAudio wheren the browser shows "unrecognised command" when setting currentTime to audio
+transpires it had nothing to do with that I forgot to exit the textbox onchange function after calling the
+exit function and it caused
+Fixed bug whereby illegal commands were just ignored no error message!
+
+Save/Load code implemented!
+Fixed bug with event handler in funcInitTextBox when typing command "resume" attached function was missing!
+
+asthetic code changes:
+changed all const ...function to arrow functions (looks nicer)
+defined local vars for regulalrly used form elements per module
+added help button as currently user does not know what to do!
+moved start/help button click handler functions to function outside their INIT functions
+
+Other naming conventions brought over from other languages:
+int - integer
+bln - boolean
+str - string
+
+|------------------------------------------------|
+|----|----|----|----|--------|----|----|----|----|
+|-|----|----|----|---|-^--^---|----|----|----|---|
+|---|----|----|----|---O  O-----|---|----|----|--|
+|----|----|----|----|-  \/   |----|----|----|----|
+|---|----|----|----|   ___!  --|---|----|----|---|
+|----|----|----|----|--------|----|----|----|----|
+|--|----|----|----|----|----|----|----|----|---|-|
+|----|----|----|-WOT-NO-TYPESCRIPT?----|----|----|
+|-|----|----|----|----|----|----|----|----|---|--|
+
+
+10/12/2024
+
+asthetic code changes for naming conventions (naming conventions in JavaScript??!):
+renamed all functions to start with: func
+form elements as vars:
+btn - button
+scr - screen (not a HTML tag but the id of the DIV section for the screens)
+txt = text element
+lbl - label for text element
+
+Other changes:
+started experimental save/load code
+added proper <label> for txtCommand element

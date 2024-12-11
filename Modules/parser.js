@@ -1,6 +1,4 @@
 "use strict";
-
-import { showRoom } from "./view.js";
 /*
   Created 11/11/2024 By Roger Williams
 
@@ -59,6 +57,8 @@ export let objState = {
   strPreposition: "",
   strDirection: "",
   strExit: "",
+  strSavedLoaded: "",
+  strHelp: "",
 };
 
 //local vars
@@ -103,9 +103,10 @@ const aryVerbs = [
   "listen",
   "walk",
   "exit", //added 13/11/2024 to handle exit as a command
+  "save", //added 10/12/2024 to handle save command
+  "save", //added 10/12/2024 to handle load command
 ];
 const aryNouns = [
-  "exit",
   "my",
   "you",
   "them",
@@ -184,6 +185,10 @@ const enumWordTypes = {
   Directions: 4,
 };
 
+//element vars
+const txtCommand = document.getElementById("txtCommand");
+const scrGameRoom = document.getElementById("scr--gameRoom");
+
 /******************************custom c# only function******************************
          Created 25/07/2024 By Roger Williams 
           
@@ -232,7 +237,7 @@ private void inStrRev (string strWhere, string strWhat) {
 };
  */
 
-const containsValidWords = function (strWhat, bytWhat) {
+const funcContainsValidWords = (strWhat, bytWhat) => {
   /*     
                     'Created 23/07/2024 By Roger Williams
                     '
@@ -322,7 +327,7 @@ const containsValidWords = function (strWhat, bytWhat) {
   return objState.blnIsOk;
 };
 
-const help_ListValidWords = function (intWhat) {
+const funcHelp_ListValidWords = (intWhat) => {
   /*
                         'Created 23/07/2024 By Roger Williams
                         '
@@ -344,7 +349,7 @@ const help_ListValidWords = function (intWhat) {
   //'
   // 'NOTE: for later phases how about a SECOND console with the help soley on it?
   // '      tis the age of 20 inch monitors after all..
-  document.getElementById("gameRoom").innerText = "";
+  scrGameRoom.innerText = "";
 
   switch (intWhat) {
     case 0: {
@@ -463,13 +468,13 @@ const help_ListValidWords = function (intWhat) {
   if (strOutput.Length != 0) {
     strOutput = strOutput + "\n\nEnter: resume - to continue game";
     //show help text
-    document.getElementById("gameRoom").innerText = strOutput;
+    scrGameRoom.innerText = strOutput;
     //reset textbox
-    document.getElementById("txtCommand").value = "";
+    txtCommand.value = "";
   }
 };
 
-const help_List = function () {
+export const funcHelp_List = () => {
   /*
                         'Created 24/07/2024 By Roger Williams
                         '
@@ -479,9 +484,11 @@ const help_List = function () {
                         '
                         'NOTE: for later phases could all these options be shown in SECOND console?
                         '
+                        modified 11/12/2024 added export for new help button
                 */
-  document.getElementById("gameRoom").innerText = "";
   let strOutput = "";
+
+  scrGameRoom.innerText = "";
   strOutput = strOutput + "Help Options\n";
   strOutput = strOutput + "============\n";
   strOutput = strOutput + "\n";
@@ -497,20 +504,20 @@ const help_List = function () {
     "List available prepositions           - help list prepositions\n";
   strOutput =
     strOutput +
-    "List available directions of movement - help list directions\n";
-  strOutput = strOutput + "\n";
-  strOutput = strOutput + "Enter: resume - to continue game";
-  strOutput = strOutput + "\n";
+    "List available directions of movement - help list directions\n\n";
+  strOutput = strOutput + "Enter: resume - to continue game\n\n";
+  strOutput = strOutput + "Other Commands:\n";
   strOutput = strOutput + "Enter: exit - at any time to end game\n";
-  strOutput = strOutput + "\n";
+  strOutput = strOutput + "Enter: load - at any time to load saved game\n";
+  strOutput = strOutput + "Enter: save - at any time to save game\n\n";
   //show help on page
-  document.getElementById("gameRoom").innerText = strOutput;
+  scrGameRoom.innerText = strOutput;
   //reset textbox
-  document.getElementById("txtCommand").value = "";
+  txtCommand.value = "";
 };
 
 //exports - funcs
-export const parseText = function (strWhat) {
+export const funcParseText = (strWhat) => {
   /*
           'Created 23/07/2024 By Roger Williams
           '
@@ -557,14 +564,20 @@ export const parseText = function (strWhat) {
     objState.strVerb = "";
     objState.strPreposition = "";
     objState.strDirection = "";
+    objState.strSavedLoaded = "";
+    objState.strHelp = "";
 
     //'convert to lowercase
     strWhat = strWhat.toLowerCase();
     //'check if help request
     if (strWhat.indexOf("help") != -1) {
+      //set as ok and as help
+      objState.blnIsOk = true;
+      objState.strHelp = "help";
+
       //'check if help request
       if (strWhat == "help") {
-        help_List();
+        funcHelp_List();
       }
       //'check if user asking for a list
       if (strWhat.indexOf("help list ") != -1) {
@@ -574,23 +587,23 @@ export const parseText = function (strWhat) {
 
         switch (strTemp) {
           case "verbs": {
-            help_ListValidWords(enumWordTypes.Verbs);
+            funcHelp_ListValidWords(enumWordTypes.Verbs);
             break;
           }
           case "adjectives": {
-            help_ListValidWords(enumWordTypes.Adjectives);
+            funcHelp_ListValidWords(enumWordTypes.Adjectives);
             break;
           }
           case "nouns": {
-            help_ListValidWords(enumWordTypes.Nouns);
+            funcHelp_ListValidWords(enumWordTypes.Nouns);
             break;
           }
           case "prepositions": {
-            help_ListValidWords(enumWordTypes.Prepositions);
+            funcHelp_ListValidWords(enumWordTypes.Prepositions);
             break;
           }
           case "directions": {
-            help_ListValidWords(enumWordTypes.Directions);
+            funcHelp_ListValidWords(enumWordTypes.Directions);
             break;
           }
         }
@@ -607,19 +620,19 @@ export const parseText = function (strWhat) {
                                   'a noun e.g. key
                                   '
                    */
-      if (containsValidWords(strWhat, enumWordTypes.Adjectives)) {
+      if (funcContainsValidWords(strWhat, enumWordTypes.Adjectives)) {
         blnAdjective = true;
       }
-      if (containsValidWords(strWhat, enumWordTypes.Directions)) {
+      if (funcContainsValidWords(strWhat, enumWordTypes.Directions)) {
         blnDirection = true;
       }
-      if (containsValidWords(strWhat, enumWordTypes.Nouns)) {
+      if (funcContainsValidWords(strWhat, enumWordTypes.Nouns)) {
         blnNoun = true;
       }
-      if (containsValidWords(strWhat, enumWordTypes.Prepositions)) {
+      if (funcContainsValidWords(strWhat, enumWordTypes.Prepositions)) {
         blnPreposition = true;
       }
-      if (containsValidWords(strWhat, enumWordTypes.Verbs)) {
+      if (funcContainsValidWords(strWhat, enumWordTypes.Verbs)) {
         blnVerb = true;
       }
 

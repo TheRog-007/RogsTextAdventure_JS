@@ -1,5 +1,4 @@
 "use strict";
-import { objState } from "./parser.js";
 /*
 Created 07/11/2024 By Roger Williams
 
@@ -10,159 +9,130 @@ view module handles visual changes such as:
 
 */
 import { aryRooms } from "./rooms.js";
-import { audPlayMain } from "./controller.js";
+import {
+  audPlayAgain,
+  audPlayMain,
+  audPlayYouLose,
+  audPlayYouWin,
+  funcSleep,
+} from "./model.js";
+//import { audPlayMain } from "./controller.js";
 
 //local
 let intCurRoom = 1;
-//sound
-const audPlayAgain = new Audio(
-  document.getElementById("sndPlayAgain").getAttribute("src")
-);
 
-const audPlayYouLose = new Audio(
-  document.getElementById("sndYouLose").getAttribute("src")
-);
+//document elements vars
+const txtCommand = document.getElementById("txtCommand");
+const lblCommand = document.getElementById("lblCommand");
+const btnHelp = document.getElementById("btnHelp");
+const btnStart = document.getElementById("btnStart");
+const scrExit = document.getElementById("scr--exitScr");
+const scrLose = document.getElementById("scr--loseScr");
+const scrWin = document.getElementById("scr--winScr");
+const scrGameRoom = document.getElementById("scr--gameRoom");
+const scrIntro1 = document.getElementById("scr--introScr1");
+const scrIntro2 = document.getElementById("scr--introScr2");
+const scrPlayAgain = document.getElementById("scr--playAgainScr");
 
-const audPlayYouWin = new Audio(
-  document.getElementById("sndYouWin").getAttribute("src")
-);
-
-const stopAudio = function () {
+//functions
+const funcStopAudio = () => {
   //stops all audio play
-  audPlayAgain.pause();
-  //reset to start
-  audPlayAgain.currentTime = 0;
-  audPlayMain.pause();
-  audPlayMain.currentTime = 0;
-  audPlayYouLose.pause();
-  audPlayYouLose.currentTime = 0;
-  audPlayYouWin.pause();
-  audPlayYouWin.currentTime = 0;
-};
+  try {
+    audPlayMain.pause();
+    audPlayAgain.pause();
+    audPlayYouLose.pause();
+    audPlayYouWin.pause();
 
-//rog's patented delay routine :)
-const sleep = function (milliseconds) {
-  let curDate = new Date();
-  //get current time
-  let startTime = curDate.getTime();
-  //set both times to match
-  let curTime = startTime;
-
-  while (curTime - startTime <= milliseconds) {
-    curDate = new Date();
-    curTime = curDate.getTime();
-    //   console.log(startTime + ` : ` + curTime);
+    audPlayMain.currentTime = 0;
+    audPlayAgain.currentTime = 0;
+    audPlayYouLose.currentTime = 0;
+    audPlayYouWin.currentTime = 0;
+  } catch (ex) {
+    console.log(ex.error);
   }
 };
 
 //exports
-export let objCurRoom = aryRooms[intCurRoom];
+export let objCurRoom = new Object();
 
-export const hideBeforePlay = function () {
+export const funcHideBeforePlay = () => {
   //prepare screen on first run
   //
-  document.getElementById("scr--introScr1").style.display = "none";
-  document.getElementById("scr--introScr2").style.display = "none";
+  scrIntro1.style.display = "none";
+  scrIntro2.style.display = "none";
 
   //hide text box and "label"
-  document.getElementById("lblCommand").style.display = "none";
-  document.getElementById("txtCommand").style.display = "none";
+  lblCommand.style.display = "none";
+  txtCommand.style.display = "none";
 
   //hide start button
-  document.getElementById("btnStart").hidden = true;
+  btnStart.hidden = true;
 
   //hide room
-  document.getElementById("scr--gameRoom").hidden = true;
+  scrGameRoom.hidden = true;
   //hide play again
-  document.getElementById("scr--playAgainScr").hidden = true;
+  scrPlayAgain.hidden = true;
+  //hide help button
+  btnHelp.hidden = true;
 };
 
-export const showForPlay = function () {
+export const funcShowForPlay = () => {
   //prepare screen on first run
   //hide intro screens
-  document.getElementById("scr--introScr1").style.display = "none";
-  document.getElementById("scr--introScr2").style.display = "none";
+  scrIntro1.style.display = "none";
+  scrIntro2.style.display = "none";
 
   //show text box and "label"
-  document.getElementById("lblCommand").style.display = "inline";
-  document.getElementById("txtCommand").style.display = "inline";
-  document.getElementById("txtCommand").focus();
+  lblCommand.style.display = "inline";
+  txtCommand.style.display = "inline";
+  txtCommand.focus();
+  btnHelp.hidden = false;
 };
 
-export const showStartButton = function () {
-  //show start button
-  document.getElementById("btnStart").hidden = false;
-};
-
-export const showRoom = function () {
-  //  const objCurRoom = aryRooms[intCurRoom];
+export const funcShowRoom = () => {
   let strTemp = "";
   //get room text
   for (let intNum = 1; intNum != 21; intNum++) {
     strTemp = strTemp + objCurRoom[`line` + intNum] + `\n`;
   }
   //show room text
-  document.getElementById("scr--gameRoom").innerText = strTemp;
-  document.getElementById("scr--gameRoom").hidden = false;
+  scrGameRoom.innerText = strTemp;
+  scrGameRoom.hidden = false;
   //clear text box
-  document.getElementById("txtCommand").value = "";
+  txtCommand.value = "";
 };
 
-export const setRoom = function (intRoom) {
+export const funcSetRoom = (intRoom) => {
   let intIndex = 0;
 
-  switch (objState.strDirection) {
-    case "south": {
-      intIndex = aryRooms.findIndex((objTemp) => {
-        return objTemp.room === intRoom;
-      });
-      objCurRoom = aryRooms[intIndex];
-      break;
-    }
-    case "north": {
-      intIndex = aryRooms.findIndex((objTemp) => {
-        return objTemp.room === intRoom;
-      });
-      objCurRoom = aryRooms[intIndex];
-      break;
-    }
-    case "east": {
-      intIndex = aryRooms.findIndex((objTemp) => {
-        return objTemp.room === intRoom;
-      });
-      objCurRoom = aryRooms[intIndex];
-      break;
-    }
-    case "west": {
-      intIndex = aryRooms.findIndex((objTemp) => {
-        return objTemp.room === intRoom;
-      });
-      objCurRoom = aryRooms[intIndex];
-      break;
-    }
+  intIndex = aryRooms.findIndex((objTemp) => {
+    return objTemp.room === intRoom;
+  });
 
-    //  objCurRoom = aryRooms[intRoom];
-  }
+  objCurRoom = Object.create(aryRooms[intIndex]);
   intCurRoom = intRoom;
-  showRoom();
+  funcShowRoom();
 };
 
-export const showplayAgain = function () {
+export const funcShowplayAgain = () => {
   //stop all music
-  stopAudio();
+  funcStopAudio();
   //hide win/lose screens
-  document.getElementById("scr--loseScr").hidden = true;
-  document.getElementById("scr--winScr").hidden = true;
+  scrLose.hidden = true;
+  scrWin.hidden = true;
   //show play again screen
-  document.getElementById("scr--playAgainScr").hidden = false;
+  scrPlayAgain.hidden = false;
   //play background music asynchronously
   audPlayAgain.play().async;
   //show play again screwn
-  document.getElementById("txtCommand").hidden = false;
-  document.getElementById("txtCommand").focus();
+  //show text box and "label"
+  lblCommand.style.display = "inline";
+  txtCommand.style.display = "inline";
+  txtCommand.focus();
+  btnHelp.hidden = true;
 };
 
-export const showIntro = function () {
+export const funcShowIntro = () => {
   //used to flash colours of intro text
 
   const aryColours = [
@@ -179,21 +149,17 @@ export const showIntro = function () {
   let intNum2 = 0;
   let intScr = 1;
   //stop all music
-  stopAudio();
+  funcStopAudio();
 
   //hide everything
-  hideBeforePlay();
-  //get first screen element
-  const elintroScr1 = document.getElementById("scr--introScr1");
-  //get second screen element
-  const elintroScr2 = document.getElementById("scr--introScr2");
+  funcHideBeforePlay();
 
   //flash first screen
-  elintroScr1.style.display = "inline";
+  scrIntro1.style.display = "inline";
 
   const loopIntro = window.setInterval(() => {
-    if (intScr === 1) elintroScr1.style.color = aryColours[intNum];
-    if (intScr === 2) elintroScr2.style.color = aryColours[intNum];
+    if (intScr === 1) scrIntro1.style.color = aryColours[intNum];
+    if (intScr === 2) scrIntro2.style.color = aryColours[intNum];
 
     if (intNum === aryColours.length) {
       intNum = 0;
@@ -201,13 +167,13 @@ export const showIntro = function () {
 
     if (intNum2 === 20) {
       intScr = 2;
-      elintroScr1.style.display = "none";
-      elintroScr2.style.display = "inline";
+      scrIntro1.style.display = "none";
+      scrIntro2.style.display = "inline";
     }
 
     if (intNum2 === 41) {
       clearInterval(loopIntro);
-      showStartButton();
+      btnStart.hidden = false;
     }
 
     intNum++;
@@ -215,7 +181,7 @@ export const showIntro = function () {
   }, 800);
 };
 
-export const exitGame = function () {
+export const funcExitGame = () => {
   //used to flash colours of intro text
 
   const aryColours = [
@@ -233,19 +199,20 @@ export const exitGame = function () {
   //user exits game
 
   //stop all sound
-  stopAudio();
-
+  funcStopAudio();
   //hide everything
-  hideBeforePlay();
+  funcHideBeforePlay();
+  //hide help button
+  btnHelp.hidden = true;
   //show exit screen
-  document.getElementById("scr--exitScr").hidden = false;
-  //flash colours
+  scrExit.hidden = false;
 
+  //flash colours
   let intNum = 0;
   let intNum2 = 0;
 
   const loopExit = window.setInterval(() => {
-    document.getElementById("scr--exitScr").style.color = aryColours[intNum];
+    scrExit.style.color = aryColours[intNum];
 
     if (intNum === aryColours.length) {
       intNum = 0;
@@ -253,6 +220,7 @@ export const exitGame = function () {
 
     if (intNum2 === 36) {
       clearInterval(loopExit);
+      window.close();
     }
 
     intNum++;
@@ -260,7 +228,7 @@ export const exitGame = function () {
   }, 800);
 };
 
-export const showWin = function () {
+export const funcShowWin = () => {
   //used to flash colours of intro text
 
   const aryColours = [
@@ -276,21 +244,23 @@ export const showWin = function () {
   //user wins game
 
   //stop all music
-  stopAudio();
+  funcStopAudio();
 
   //play win tune
   audPlayYouWin.play().async;
   //hide everything
-  hideBeforePlay();
+  funcHideBeforePlay();
+  //hide help button
+  btnHelp.hidden = true;
   //show exit screen
-  document.getElementById("scr--winScr").hidden = false;
-  //flash colours
+  scrWin.hidden = false;
 
+  //flash colours
   let intNum = 0;
   let intNum2 = 0;
 
   const loopExit = window.setInterval(() => {
-    document.getElementById("scr--winScr").style.color = aryColours[intNum];
+    scrWin.style.color = aryColours[intNum];
 
     if (intNum === aryColours.length) {
       if (intNum === aryColours.length) {
@@ -302,7 +272,7 @@ export const showWin = function () {
     if (intNum2 === 41) {
       if (intNum2 === 41) {
         clearInterval(loopExit);
-        showplayAgain();
+        funcShowplayAgain();
       }
     }
 
@@ -313,7 +283,7 @@ export const showWin = function () {
   }, 800);
 };
 
-export const showLose = function () {
+export const funcShowLose = () => {
   //used to flash colours of intro text
 
   const aryColours = [
@@ -330,31 +300,65 @@ export const showLose = function () {
   let intNum = 0;
   let intNum2 = 0;
 
-  //delay so player can see last room text
-  sleep(10000); // pause for 10 seconds
+  // //delay so player can see last room text
+  //funcSleep(10000); // pause for 10 seconds
   //stop all music
-  stopAudio();
-  //play lose tune
-  audPlayYouLose.play().async;
+  funcStopAudio();
   //hide room
-  document.getElementById("scr--gameRoom").hidden = true;
+  scrGameRoom.hidden = true;
   //show exit screen
-  document.getElementById("scr--loseScr").hidden = false;
+  scrLose.hidden = false;
+  //hide help button
+  funcHideBeforePlay();
   //flash colours
-
   const loopExit = window.setInterval(() => {
-    document.getElementById("scr--loseScr").style.color = aryColours[intNum];
+    scrLose.style.color = aryColours[intNum];
 
     if (intNum === aryColours.length) {
       intNum = 0;
     }
 
-    if (intNum2 === 41) {
-      clearInterval(loopExit);
-      showplayAgain();
-    }
+    // if (intNum2 === 41) {
+    //   clearInterval(loopExit);
+    //   funcShowplayAgain();
+    // }
 
     intNum++;
     intNum2++;
   }, 800);
+
+  //play lose tune
+  audPlayYouLose.play();
+  audPlayYouLose.onended = () => {
+    //when finished playing
+    clearInterval(loopExit);
+    funcShowplayAgain();
+  };
 };
+//   //hide room
+//   scrGameRoom.hidden = true;
+//   //show exit screen
+//   scrLose.hidden = false;
+//   //flash colours
+//   //hide help button
+//   funcHideBeforePlay();
+
+//   const loopExit = window.setInterval(() => {
+//     scrLose.style.color = aryColours[intNum];
+
+//     if (intNum === aryColours.length) {
+//       intNum = 0;
+//     }
+
+//     if (intNum2 === 41) {
+//       clearInterval(loopExit);
+//       funcShowplayAgain();
+//     }
+
+//     intNum++;
+//     intNum2++;
+//   }, 800);
+// };
+
+//set objCurRoom
+objCurRoom = Object.create(aryRooms[intCurRoom]);
