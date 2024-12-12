@@ -1,7 +1,10 @@
 "use strict";
-//import "code-js";
-//import "regenerator-runtime";
+/*
+Created 07/11/2024 By Roger Williams
 
+Main module that orchestrates actions and is the main game loop
+
+*/
 import {
   funcInitTextBox,
   funcInitHelpButton,
@@ -17,20 +20,6 @@ export const audPlayMain = new Audio(
 export const funcMainGame = () => {
   //add event so background music loops
   funcInitMusic();
-
-  // audPlayMain.addEventListener(
-  //   "ended",
-  //   () => {
-  //     //set to start of file
-  //     this.currentTime = 0;
-  //     //play again!
-  //     this.play().async;
-  //   },
-  //   false //set default of ended event to false
-  // );
-
-  // //play background music asynchronously
-  // audPlayMain.play().async;
   funcShowRoom();
 
   //main game loop

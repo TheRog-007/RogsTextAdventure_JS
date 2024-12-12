@@ -1,10 +1,11 @@
-export const objLoadSave = {
-  room: 0,
-  north: 0,
-  south: 0,
-  east: 0,
-  west: 0,
-};
+/*
+  Created 11/11/2024 By Roger Williams
+
+  A JavaScript onject of the original level1.txt from the
+  console versions
+
+  */
+
 export const aryRooms = [
   {
     room: 0,

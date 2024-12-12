@@ -4,7 +4,12 @@
 
   Literally a translation of the C# parser class!
 
+  Due to the lamguage similarities did not take long
+  Some changes needed to be made such as X# LIST objects
+  do not exist so used arrays instead
 
+  Comments are a fusion of the original VB version and 
+  the C# version
 
 */
 /*

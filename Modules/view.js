@@ -6,6 +6,8 @@ view module handles visual changes such as:
 
 - show intro
 - show level
+= show win/lose screen
+- show play again screen
 
 */
 import { aryRooms } from "./rooms.js";
@@ -14,7 +16,6 @@ import {
   audPlayMain,
   audPlayYouLose,
   audPlayYouWin,
-  funcSleep,
 } from "./model.js";
 //import { audPlayMain } from "./controller.js";
 

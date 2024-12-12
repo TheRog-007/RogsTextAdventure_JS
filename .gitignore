@@ -1,5 +1,8 @@
 node_modules
+.vscode
 dist 
+RogTextAdventureVB
+NoLongerNeeded
 .parcel_cache
 introscr1.txt
 introscr2.txt
@@ -10,5 +13,3 @@ outroscr.txt
 playagain.txt
 youlose.txt
 youwin.txt
-RogTextAdventureVB
-.vscode

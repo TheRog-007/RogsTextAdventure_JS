@@ -4,7 +4,7 @@ Change Log
 WOW! have not had to create one of these text files since the 90's! Are we really going forwards? ;)
 
 
-11/12 2024
+11/12/2024
 
 Revamped funcShowSetRoom:
 removed direction switch check, refactored into a much simplier structure

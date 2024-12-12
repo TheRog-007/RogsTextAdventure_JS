@@ -54,8 +54,8 @@ const funcHelpButtonClick = () => {
 };
 
 //exports
-export const audPlayAgain = new Audio(
-  document.getElementById("sndPlayAgain").getAttribute("src")
+export const audPlayMain = new Audio(
+  document.getElementById("sndMain").getAttribute("src")
 );
 
 export const audPlayYouLose = new Audio(
@@ -66,8 +66,8 @@ export const audPlayYouWin = new Audio(
   document.getElementById("sndYouWin").getAttribute("src")
 );
 
-export const audPlayMain = new Audio(
-  document.getElementById("sndMain").getAttribute("src")
+export const audPlayAgain = new Audio(
+  document.getElementById("sndPlayAgain").getAttribute("src")
 );
 
 //rog's patented delay routine :)
@@ -202,20 +202,6 @@ export const funcInitTextBox = () => {
             ) {
               alert(`Unrecognised Command!`);
             }
-            // //check for end of game
-            // if (objCurRoom.win === true) {
-            //   objCurRoom.win = false; //reset to avoid loop!
-            //   funcShowWin();
-            //   return;
-            // }
-            //   if (objCurRoom.lose === true) {
-            //     objCurRoom.lose = false; //reset to avoid loop!
-            //     //   //delay so player can see last room text
-            //     funcSleep(10000); // pause for 10 seconds
-            //     funcShowLose();
-            //     return;
-            //   }
-            // } else {
           }
         }
       }
