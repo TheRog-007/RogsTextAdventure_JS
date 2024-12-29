@@ -1,19 +1,24 @@
 # RogsTextAdventure_JS
 The JavaScript Version!
-Potential employers who have seen my website know I initially did a basic 80s text style 
-adventure game.
 
-Originally done in Vb .NET it was converted too:
+Original remit:
+Create a simple 80s style text adventure that runs in a console, then translate it into
+as many console supporting languages as possible to show my flexibility and knowledge
+of programming languages.
+
+Originally done in VB .NET it was converted too:
 - C#
 - Delphi
-- COBOL
+- COBOL (!!)
 
-I thought a JavaScript version would be impossible due to JavaScript not being able to read
-files from a PC.
+As a tech demo it is currently limited to movement only via simple commands such as: move north
+Required some utilities to be written especially for converting the level file into a COBOL
+friendly format.
 
-However..
+Why no C++ version? Well because C# is basically in many ways the same! (Might do it later on..)
 
-I have recently finished a massively intensive course in JavaScript beginner to expert and I
-now know how to do it!
+This JavaScript version obviously does not run in a console so not technically meeting
+the remit, but it was fun to do!
 
-This version obviously uses CSS and I composed some music for it - enjoy!
+Background music and all other music was written and composed by me!
+
