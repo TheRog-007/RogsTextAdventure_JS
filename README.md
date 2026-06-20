@@ -22,3 +22,8 @@ the remit, but it was fun to do!
 
 Background music and all other music was written and composed by me!
 
+
+*Future Changes* 
+
+Currently has a **very** primtive parser needs to handle more commands other than movement directions
+Also would be peachy to have objects in the level..  
